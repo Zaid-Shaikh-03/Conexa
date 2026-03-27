@@ -2,11 +2,15 @@ import cookieParser from "cookie-parser";
 import "dotenv/config"
 import express, { type Request, type Response } from "express";
 import cors from "cors";
+import passport from "passport";
 import { Env } from "./config/env.config";
 import { asyncHandler } from "./middlewares/asyncHandler.middleware";
 import { HTTPSTATUS } from "./config/http.config";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import connectDatabase from "./config/database.config";
+import routes from "./routes";
+
+import "./config/passport.config";
 
 const app = express();
 
@@ -20,12 +24,16 @@ app.use(
     })
 )
 
+app.use(passport.initialize());
+
 app.get("/health", asyncHandler(async(req:Request, res: Response) => {
     res.status(HTTPSTATUS.OK).json({
         message: "Server is healthy",
         status: "Ok"
     })
 }))
+
+app.use('/api',routes)
 
 app.use(errorHandler)
 
