@@ -27,6 +27,9 @@ const chatSchema = new Schema<ChatDocument>({
         type: Boolean,
         default: false,
     },
+    groupName:{
+        type: String,
+    },
     createdBy: {
         type: Schema.Types.ObjectId,
             ref: "User",
