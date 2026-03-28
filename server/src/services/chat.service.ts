@@ -45,7 +45,7 @@ export const createChatService = async (
             createdBy: userId,
         })
     }
-    if (!chat) throw new Error("Chat not created")
+    if(!chat) throw new BadRequestException("Chat not created")
 
     return chat;
 
