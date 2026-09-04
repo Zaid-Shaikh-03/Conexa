@@ -15,10 +15,11 @@ function App() {
 
   const isAuth = inAuthRoute(pathname);
   useEffect(() => {
+    if (isAuth) return;
     isAuthStatus();
-  }, [isAuthStatus]);
+  }, [isAuthStatus, isAuth]);
 
-  if (isAuthStatusLoading && !user && !isAuth) {
+  if (isAuthStatusLoading && !user) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <Logo imgClass="size-20" show-text={false} />
