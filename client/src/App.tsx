@@ -4,16 +4,13 @@ import AppRoutes from "./routes";
 import { Spinner } from "./components/ui/spinner";
 import Logo from "./components/logo";
 import { useLocation } from "react-router-dom";
-import { inAuthRoute } from "./routes/routes";
-import { useSocket } from "./hooks/use-socket";
+import { isAuthRoute } from "./routes/routes";
 
 function App() {
   const { pathname } = useLocation();
   const { user, isAuthStatus, isAuthStatusLoading } = useAuth();
-  const { onlineUsers } = useSocket();
-  console.log(onlineUsers, "onlineUsers");
+  const isAuth = isAuthRoute(pathname);
 
-  const isAuth = inAuthRoute(pathname);
   useEffect(() => {
     if (isAuth) return;
     isAuthStatus();
@@ -21,8 +18,12 @@ function App() {
 
   if (isAuthStatusLoading && !user) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <Logo imgClass="size-20" show-text={false} />
+      <div
+        className="flex flex-col items-center
+       justify-center h-screen
+      "
+      >
+        <Logo imgClass="size-20" showText={false} />
         <Spinner className="w-6 h-6" />
       </div>
     );

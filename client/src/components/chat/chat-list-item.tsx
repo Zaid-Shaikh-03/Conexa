@@ -25,14 +25,26 @@ const ChatListItem = ({ chat, currentUserId, onClick }: PropsType) => {
         ? chat.creaetdBy === currentUserId
           ? "Group created"
           : "You were added"
-        : "Send a meesage";
-    }
-    if (lastMessage.image) return "Photo";
-    if (isGroup && lastMessage.sender) {
-      return `${lastMessage.sender._id === currentUserId ? "You" : lastMessage.sender.name} : ${lastMessage.content}`;
+        : "Send a message";
     }
 
-    return lastMessage.content;
+    if (lastMessage.image) return "Photo";
+
+    const messageText = lastMessage.content?.trim();
+    // console.log(lastMessage.content, "lastm");
+
+    if (isGroup && lastMessage.sender) {
+      const senderName =
+        lastMessage.sender._id === currentUserId
+          ? "You"
+          : lastMessage.sender.name || "Unknown";
+
+      return messageText
+        ? `${senderName}: ${messageText}`
+        : `${senderName}: sent a message`;
+    }
+
+    return messageText || "New message";
   };
 
   return (

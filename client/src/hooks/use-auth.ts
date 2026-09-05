@@ -70,7 +70,7 @@ export const useAuth = create<AuthState>()(
                     useSocket.getState().connetSocket();
                 }catch(err: any) {
                     toast.error(err.response?.data?.message || "Authentication failed")
-                    console.log(err);
+                    // console.log(err);
                     //set({ user: null });
                 }finally {
                     set({ isAuthStatusLoading: false })

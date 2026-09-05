@@ -35,7 +35,7 @@ export const createChatService = async (
         $all: allParticipantIds,
         $size: 2,
       },
-    }).populate("participants", "name avatar");
+    }).populate("participants", "name avatar isAI");
 
     if (existingChat) return existingChat;
 
@@ -47,7 +47,7 @@ export const createChatService = async (
   }
   if (!chat) throw new BadRequestException("Chat not created");
 
-  const populateChat = await chat?.populate("participants", "name avatar");
+  const populateChat = await chat?.populate("participants", "name avatar isAI");
   const participantIdStrings = populateChat?.participants?.map((p) => {
     return p._id?.toString();
   });
@@ -62,7 +62,7 @@ export const getUserChatsService = async (userId: string) => {
       $in: [userId],
     },
   })
-    .populate("participants", "name avatar")
+    .populate("participants", "name avatar isAI")
     .populate({
       path: "lastMessage",
       populate: {
@@ -80,20 +80,20 @@ export const getSingleChatService = async (userId: string, chatId: string) => {
     participants: {
       $in: [userId],
     },
-  }).populate("participants", "name avatar");
+  }).populate("participants", "name avatar isAI");
   if (!chat)
     throw new BadRequestException(
       "Chat not found or you are not authorized to view this chat",
     );
 
   const messages = await MessageModel.find({ chatId })
-    .populate("sender", "name avatar")
+    .populate("sender", "name avatar isAI")
     .populate({
       path: "replyTo",
       select: "content image sender",
       populate: {
         path: "sender",
-        select: "name avatar",
+        select: "name avatar isAI",
       },
     })
     .sort({ createdAt: 1 });

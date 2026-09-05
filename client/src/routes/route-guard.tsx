@@ -11,7 +11,7 @@ const RouteGuard = ({ requiredAuth }: Props) => {
   if (requiredAuth && !user) return <Navigate to="/" replace />;
   if (!requiredAuth && user) return <Navigate to="/chat" replace />;
 
-  console.log(requiredAuth);
+  // console.log(requiredAuth);
   return <Outlet />;
 };
 

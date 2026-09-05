@@ -18,7 +18,9 @@ const Logo = ({
   <Link to={url} className="flex items-center gap-2 w-fit">
     <img src={logoPng} alt="Conexa" className={cn(imgClass)} />
     {showText && (
-      <span className={cn("font-semibold text-lg leading-tight")}></span>
+      <span className={cn("font-semibold text-lg leading-tight", textClass)}>
+        Conexa
+      </span>
     )}
   </Link>
 );

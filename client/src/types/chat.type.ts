@@ -2,9 +2,10 @@ import type { UserType } from "./auth.type";
 
 export type ChatType = {
   _id: string;
-  lastMessage: MessageType;
+  lastMessage: MessageType | null;
   participants: UserType[];
   isGroup: boolean;
+  isAiChat: boolean;
   creaetdBy: string;
   groupName?: string;
   createdAt: string;
@@ -21,6 +22,7 @@ export type MessageType = {
   updatedAt: string;
   //
   status?: string;
+  streaming?: boolean;
 };
 
 export type CreateChatType = {

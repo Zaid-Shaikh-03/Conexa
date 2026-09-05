@@ -14,12 +14,14 @@ import { useChat } from "@/hooks/use-chat";
 interface Props {
   chatId: string | null;
   currentUserId: string | null;
+  isAIChat: boolean;
   replyTo: MessageType | null;
   onCancelReply: () => void;
 }
 const ChatFooter = ({
   chatId,
   currentUserId,
+  isAIChat,
   replyTo,
   onCancelReply,
 }: Props) => {
@@ -63,6 +65,7 @@ const ChatFooter = ({
       toast.error("Please enter a message or select an image");
       return;
     }
+
     const payload = {
       chatId,
       content: values.message,
@@ -70,7 +73,7 @@ const ChatFooter = ({
       replyTo: replyTo,
     };
     //Send Message
-    sendMessage(payload);
+    sendMessage(payload, isAIChat);
 
     onCancelReply();
     handleRemoveImage();

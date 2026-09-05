@@ -8,7 +8,7 @@
 html,
 body {
   height: 100%;
-  font-family: "Fira Sans", serif !important;
+  font-family: "Fira Sans", sans-serif;
 }
 
 @custom-variant dark (&:is(.dark *));
